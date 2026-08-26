@@ -88,13 +88,13 @@ Quan hệ: 1 Category có nhiều Book (1-N).
 Chi tiết các luồng chính (Thêm / Sửa / Xóa / Xem) cho cả Sách và Thể loại,
 xem tại thư mục [`docs/`](docs/):
 
-- [`docs/system-flow-add-book.png`](docs/system-flow-add-book.png) — Thêm sách
-- [`docs/system-flow-book-edit.png`](docs/system-flow-book-edit.png) — Sửa sách
-- [`docs/system-flow-book-delete.png`](docs/system-flow-book-delete.png) — Xóa sách (2 giai đoạn: modal xác nhận rồi mới gửi request)
-- [`docs/system-flow-book-view.png`](docs/system-flow-book-view.png) — Xem chi tiết sách
-- [`docs/system-flow-category-add.png`](docs/system-flow-category-add.png) — Thêm thể loại
-- [`docs/system-flow-category-edit.png`](docs/system-flow-category-edit.png) — Sửa thể loại
-- [`docs/system-flow-category-delete.png`](docs/system-flow-category-delete.png) — Xóa thể loại (có rẽ nhánh kiểm tra còn sách hay không)
+- [`docs/book_add_flow.png`](docs/book_add_flow.png) — Thêm sách
+- [`docs/book_edit_flow.png`](docs/book_edit_flow.png — Sửa sách
+- [`docs/book_delete_flow.png`](docs/book_delete_flow.png) — Xóa sách (2 giai đoạn: modal xác nhận rồi mới gửi request)
+- [`docs/book_view_flow.png](docs/book_view_flow.png) — Xem chi tiết sách
+- [`docs/category_add_flow.png`](docs/category_add_flow.png) — Thêm thể loại
+- [`docs/category_edit_flow.png`](docs/category_edit_flow.png) — Sửa thể loại
+- [`docs/category_delete_flow.png`](docs/category_delete_flow.png) — Xóa thể loại (có rẽ nhánh kiểm tra còn sách hay không)
 - [`docs/system-flow-deploy.png`](docs/system-flow-deploy.png) — Deploy flow (Domain → DNS → Nginx → PHP-FPM → Laravel → MySQL)
 
 **Lưu ý**: Thể loại (Category) không có trang xem chi tiết riêng — tên và số
