@@ -1,58 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mini Book Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ứng dụng quản lý sách cá nhân xây dựng bằng Laravel — quản lý thể loại và
+sách, hỗ trợ tìm kiếm, lọc, phân trang, và xóa mềm (soft delete).
 
-## About Laravel
+## Tính năng
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Quản lý Thể loại (Category): Thêm / Sửa / Xóa, hiển thị số sách theo từng
+  thể loại.
+- Quản lý Sách (Book): Thêm / Sửa / Xóa / Xem chi tiết.
+- Tìm kiếm sách theo tên, lọc theo thể loại và trạng thái đọc.
+- Phân trang danh sách.
+- Xóa mềm (Soft Delete) — dữ liệu xóa có thể khôi phục lại.
+- Giao diện responsive (Flexbox), xác nhận xóa qua modal popup.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Công nghệ sử dụng
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.3 / Laravel
+- MySQL
+- Blade Template
+- HTML/CSS (Flexbox) + JavaScript thuần
 
-## Learning Laravel
+## Yêu cầu môi trường
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP >= 8.2
+- Composer
+- MySQL (hoặc MariaDB)
+- (Khuyến khích) Laragon / XAMPP nếu chạy trên Windows
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Hướng dẫn cài đặt và chạy project
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+1. Clone repository:
+   ```
+   git clone https://github.com/giangtpt/mini-book.git
+   cd mini-book
+   ```
 
-## Agentic Development
+2. Cài đặt các gói phụ thuộc PHP:
+   ```
+   composer install
+   ```
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+3. Tạo file cấu hình môi trường từ file mẫu:
+   ```
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-```bash
-composer require laravel/boost --dev
+4. Mở file `.env`, cấu hình kết nối database:
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=mini_book_management
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-php artisan boost:install
-```
+5. Tạo database rỗng tên `mini_book_management` trong MySQL (qua HeidiSQL,
+   phpMyAdmin, hoặc dòng lệnh MySQL).
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+6. Chạy migration để tạo bảng:
+   ```
+   php artisan migrate
+   ```
 
-## Contributing
+7. Khởi động server:
+   ```
+   php artisan serve
+   ```
+   Truy cập ứng dụng tại `http://127.0.0.1:8000`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   (Nếu dùng Laragon, có thể truy cập trực tiếp qua domain ảo
+   `http://mini-book-management.test` mà không cần chạy `php artisan serve`.)
 
-## Code of Conduct
+## Cấu trúc Database
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Xem chi tiết tại [`docs/erd.png`](docs/erd.png).
 
-## Security Vulnerabilities
+- **categories**: `id`, `name`, `created_at`, `updated_at`, `deleted_at`
+- **books**: `id`, `title`, `author`, `category_id` (khóa ngoại), `description`,
+  `published_year`, `status`, `created_at`, `updated_at`, `deleted_at`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Quan hệ: 1 Category có nhiều Book (1-N).
 
-## License
+## Sơ đồ luồng hệ thống
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Chi tiết các luồng chính (Thêm / Sửa / Xóa / Xem) cho cả Sách và Thể loại,
+xem tại thư mục [`docs/`](docs/):
+
+- [`docs/system-flow-add-book.png`](docs/system-flow-add-book.png) — Thêm sách
+- [`docs/system-flow-book-edit.png`](docs/system-flow-book-edit.png) — Sửa sách
+- [`docs/system-flow-book-delete.png`](docs/system-flow-book-delete.png) — Xóa sách (2 giai đoạn: modal xác nhận rồi mới gửi request)
+- [`docs/system-flow-book-view.png`](docs/system-flow-book-view.png) — Xem chi tiết sách
+- [`docs/system-flow-category-add.png`](docs/system-flow-category-add.png) — Thêm thể loại
+- [`docs/system-flow-category-edit.png`](docs/system-flow-category-edit.png) — Sửa thể loại
+- [`docs/system-flow-category-delete.png`](docs/system-flow-category-delete.png) — Xóa thể loại (có rẽ nhánh kiểm tra còn sách hay không)
+- [`docs/system-flow-deploy.png`](docs/system-flow-deploy.png) — Deploy flow (Domain → DNS → Nginx → PHP-FPM → Laravel → MySQL)
+
+**Lưu ý**: Thể loại (Category) không có trang xem chi tiết riêng — tên và số
+sách đã hiển thị đủ ngay trong bảng danh sách.
+
+## Debug Report
+
+Xem chi tiết các lỗi thực tế đã gặp và cách xử lý tại
+[`DEBUG_REPORT.md`](DEBUG_REPORT.md).
+
+## Demo
+
+Project chạy local trên môi trường phát triển (Laragon), chưa triển khai lên
+server thật — không có URL demo public.
