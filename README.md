@@ -89,7 +89,7 @@ Chi tiết các luồng chính (Thêm / Sửa / Xóa / Xem) cho cả Sách và T
 xem tại thư mục [`docs/`](docs/):
 
 - [`docs/book_add_flow.png`](docs/book_add_flow.png) — Thêm sách
-- [`docs/book_edit_flow.png`](docs/book_edit_flow.png — Sửa sách
+- [`docs/book_edit_flow.png`](docs/book_edit_flow.png) — Sửa sách
 - [`docs/book_delete_flow.png`](docs/book_delete_flow.png) — Xóa sách (2 giai đoạn: modal xác nhận rồi mới gửi request)
 - [`docs/book_view_flow.png](docs/book_view_flow.png) — Xem chi tiết sách
 - [`docs/category_add_flow.png`](docs/category_add_flow.png) — Thêm thể loại
