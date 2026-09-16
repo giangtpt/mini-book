@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -24,7 +25,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name')
+                    ->whereNull('deleted_at'),
+            ],
         ]);
 
         Category::create($request->only('name'));
@@ -42,7 +49,14 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name')
+                    ->whereNull('deleted_at')
+                    ->ignore($category->id),
+            ],
         ]);
 
         $category->update($request->only('name'));
