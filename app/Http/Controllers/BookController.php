@@ -43,7 +43,7 @@ class BookController extends Controller
             'author' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'published_year' => 'nullable|integer|min:1000|max:' . (date('Y') + 1),
+            'published_year' => 'nullable|integer|min:1901|max:' . (date('Y') + 1),
             'status' => 'required|in:Want to Read,Reading,Read',
         ]);
 
@@ -73,7 +73,7 @@ class BookController extends Controller
             'author' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'published_year' => 'nullable|integer|min:1000|max:' . (date('Y') + 1),
+            'published_year' => 'nullable|integer|min:1901|max:' . (date('Y') + 1),
             'status' => 'required|in:Want to Read,Reading,Read',
         ]);
 
@@ -92,5 +92,4 @@ class BookController extends Controller
             ->route('books.index')
             ->with('success', 'Xóa sách thành công.');
     }
-
 }
