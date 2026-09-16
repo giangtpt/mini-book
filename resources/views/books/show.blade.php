@@ -2,35 +2,42 @@
 
 @section('content')
     <div class="container">
-        <h1>{{ $book->title }}</h1>
+        <div class="book-detail">
+            <h1>{{ $book->title }}</h1>
 
-        <p>
-            <strong>Tác giả:</strong>
-            {{ $book->author }}
-        </p>
+            <div class="detail-row">
+                <span class="detail-label">Tác giả</span>
+                <span class="detail-value">{{ $book->author }}</span>
+            </div>
 
-        <p>
-            <strong>Thể loại:</strong>
-            {{ $book->category->name }}
-        </p>
+            <div class="detail-row">
+                <span class="detail-label">Thể loại</span>
+                <span class="detail-value">{{ $book->category->name }}</span>
+            </div>
 
-        <p>
-            <strong>Năm xuất bản:</strong>
-            {{ $book->published_year ?? 'Chưa cập nhật' }}
-        </p>
+            <div class="detail-row">
+                <span class="detail-label">Năm xuất bản</span>
+                <span class="detail-value">
+                    {{ $book->published_year ?? 'Chưa cập nhật' }}
+                </span>
+            </div>
 
-        <p>
-            <strong>Trạng thái:</strong>
-            {{ $book->status }}
-        </p>
+            <div class="detail-row">
+                <span class="detail-label">Trạng thái</span>
+                <span class="detail-value">{{ $book->status }}</span>
+            </div>
 
-        <p>
-            <strong>Mô tả:</strong>
-            {{ $book->description ?? 'Không có mô tả' }}
-        </p>
+            <div class="detail-row">
+                <span class="detail-label">Mô tả</span>
+                <span class="detail-value">
+                    {{ $book->description ?? 'Không có mô tả' }}
+                </span>
+            </div>
 
-        <a href="{{ route('books.index') }}">
-            ← Quay lại danh sách
-        </a>
+            <div class="book-actions">
+                <a href="{{ route('books.edit', $book) }}">Sửa</a>
+                <a href="{{ route('books.index') }}">← Quay lại danh sách</a>
+            </div>
+        </div>
     </div>
 @endsection

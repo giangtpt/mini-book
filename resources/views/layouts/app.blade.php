@@ -2,6 +2,7 @@
 <html lang="vi">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -493,6 +494,52 @@
             color: #fff;
         }
 
+        /* Book detail */
+        .book-detail {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 560px;
+            box-shadow:
+                0 1px 2px rgba(16,24,40,0.05),
+                0 1px 3px rgba(16,24,40,0.06);
+            border-top: 3px solid #4f46e5;
+        }
+
+        .book-detail h1 {
+            margin: 0 0 20px;
+            font-size: 22px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 0;
+            border-top: 1px solid #f0f1f3;
+            font-size: 14px;
+        }
+
+        .detail-row:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            flex: 0 0 140px;
+        }
+
+        .detail-value {
+            text-align: right;
+            color: #1f2328;
+            flex: 1;
+        }
+
         @media (max-width: 600px) {
             .book-grid {
                 flex-direction: column;
@@ -508,6 +555,7 @@
             }
         }
     </style>
+
 </head>
 
 <body>
