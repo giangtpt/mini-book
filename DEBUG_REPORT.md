@@ -13,18 +13,20 @@ Xóa 1 thể loại (ví dụ "Trinh thám"), sau đó tạo lại 1 thể loạ
    phải lỗi Database (không có mã lỗi SQL nào kèm theo) — nên hướng điều
    tra tập trung vào quy tắc validate `unique`, chưa cần nghi ngờ đến
    Controller hay Model.
-2. **Đặt câu hỏi**: nếu thể loại cũ đã xóa, tại sao hệ thống vẫn "thấy"
-   nó để báo trùng? → giả thuyết đặt ra: có thể dữ liệu cũ **chưa thực
-   sự biến mất** khỏi database.
-3. **Kiểm chứng giả thuyết**: mở trực tiếp bảng `categories` trong
-   HeidiSQL, tìm đúng dòng thể loại vừa xóa — phát hiện dòng đó **vẫn
-   còn tồn tại thật** trong database, chỉ có cột `deleted_at` được điền
-   giá trị thời gian (thay vì để trống như các dòng chưa xóa).
-4. **Kết luận nguyên nhân**: chức năng Xóa của ứng dụng dùng **xóa mềm**
-   (soft delete) — không xóa dữ liệu thật, chỉ đánh dấu "đã xóa" để có
-   thể khôi phục lại sau này. Trong khi đó, quy tắc `unique` mặc định
-   kiểm tra **toàn bộ dữ liệu có trong bảng**, không tự biết phân biệt
-   dòng nào đã bị đánh dấu xóa — nên vẫn tính là trùng tên.
+2. **Đặt câu hỏi đúng trọng tâm**: vì ứng dụng đã được chủ động thiết kế
+   dùng xóa mềm (soft delete) từ đầu — không phải điều mới phát hiện —
+   nên câu hỏi cần đặt ra là: liệu quy tắc `unique` có tự biết loại trừ
+   những bản ghi đã bị đánh dấu xóa mềm hay không?
+3. **Kiểm chứng**: mở trực tiếp bảng `categories` trong HeidiSQL, tìm
+   đúng dòng thể loại vừa xóa — xác nhận dòng đó **vẫn còn tồn tại thật**
+   trong database (đúng như thiết kế xóa mềm), chỉ có cột `deleted_at`
+   được điền giá trị thời gian. Điều này khẳng định: quy tắc `unique`
+   đang kiểm tra luôn cả dòng đã xóa mềm đó, vì nó vẫn "nhìn thấy" được
+   trong bảng.
+4. **Kết luận nguyên nhân**: quy tắc `unique` mặc định kiểm tra **toàn
+   bộ dữ liệu có trong bảng**, không tự phân biệt được dòng nào đã bị
+   đánh dấu xóa mềm — đây là hành vi mặc định của validate, không tự
+   động tương thích với cơ chế xóa mềm mà ứng dụng đang dùng.
 
 ### Cách xử lý
 Sửa trong file `app/Http/Controllers/CategoryController.php`, thêm điều
